@@ -2,21 +2,25 @@ import {createSlice} from '@reduxjs/toolkit';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const addingNewMenu = createAsyncThunk("addnewmenu", async (add) => {
+export const addingNewMenu = createAsyncThunk("addnewmenu", async () => {
     const response = await fetch(`http://localhost:4001/addmenu`).then((data) => {
         return data.json()
     })
     return response
 })
 
+const initial = {
+    loading: false,
+    name: null,
+    identifier: null,
+    price: null,
+    img: null,
+}
+
 const addReducer = createSlice({
-    name: "kfc",
+    name: "kfcaddData",
     initialState: {
-        loading: false,
-        name: "",
-        identifier: "",
-        price: 0,
-        img: ""
+        value: initial
     },
     reducer: {},
     extraReducers: {
@@ -25,14 +29,16 @@ const addReducer = createSlice({
         },
         [addingNewMenu.fulfilled]: (state, action) => {
             state.loading = false;
-            state.name = (action.payload.data);
-            state.identifier = (action.payload.data);
-            state.price = (action.payload.data);
-            state.img = (action.payload.data);
+            state.name = action.payload.data;
+            state.identifier = action.payload.data;
+            state.price = action.payload.data;
+            state.img = action.payload.data;
+            // state.menu = action.payload.data
         },
         [addingNewMenu.rejected]: (state, action) => {
             console.log(state,"state")
             console.log(action,"action")
+            state.loading = true
         }
     }
 })
