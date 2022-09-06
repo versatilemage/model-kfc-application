@@ -1,7 +1,7 @@
 import {KFCModel} from '../Models/KfcModel.js';
 
 export const addMenuToKfc = async (req, res) => {
-    const upid = req.body.identifier
+    const identifier = req.body.identifier
     const price = req.body.price
     const name = req.body.name
     const img = req.body.img
@@ -9,7 +9,7 @@ export const addMenuToKfc = async (req, res) => {
             price: price,
             name: name,
             img: img,
-            identifier: upid
+            identifier: identifier
     })
     data.save((err, data) => {
         if(err) {
