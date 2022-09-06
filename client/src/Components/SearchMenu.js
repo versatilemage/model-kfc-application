@@ -16,22 +16,24 @@ function SearchMenu() {
     e.target.elements[0].value = '';
   }
   return (
-    <div>
+    <div className="flex flex-row bg-red-600 justify-between items-center px-20 h-96">
       
-        <form onSubmit={handleSubmit}>
-          <input type="text" placeholder='enter name' />
-          <button>search</button>
+        <form onSubmit={handleSubmit} 
+        className="flex flex-col space-y-3 items-center">
+          <input type="text" placeholder="enter name"
+          className="py-3 px-5 text-center rounded-lg"/>
+          <button className="bg-green-700 text-white
+          font-bold text-xl uppercase py-2 w-3/4 rounded-lg">search</button>
         </form>
-        <div className="menu-container">
+        <div className="">
       {loading && <div>Please wait Loading.....</div>}
       {
         !loading && menu.map((item) => (
-          <div className="menu-item--container" key={item.id}>
-            <img src={item.img}/>
-              <div className='menu-description'>
+          <div className="flex flex-col w-full h-80 px-10 space-y-4 shadow shadow-black py-5 rounded-sm bg-red-700" key={item.id}>
+            <img src={item.img} className="w-56 h-56 rounded-lg"/>
+              <div className="flex flex-col text-center text-white font-bold space-y-2">
                 <div>{item.name}</div>
                 <div>${item.price}</div>
-                <button>search</button>
               </div>
           </div>
         ))
