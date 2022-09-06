@@ -21,7 +21,7 @@ function App() {
         <Link to="search">Search</Link>
         <Link to="update">Update</Link>
         <Link to="delete">Delete</Link>
-        {/* <Link to="add">add</Link> */}
+        <Link to="add">add</Link>
       </div>
       
       <Routes>
@@ -30,7 +30,7 @@ function App() {
         <Route path="/search" element={<SearchMenu/>}></Route>
         <Route path="/update" element={<UpdateMenu/>}></Route>
         <Route path="/delete" element={<DeleteMenu/>}></Route>
-        {/* <Route path="/add" element={<Addmenu />}></Route> */}
+        <Route path="/add" element={<Addmenu />}></Route>
       </Routes>
     </div>
   )
