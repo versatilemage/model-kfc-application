@@ -8,13 +8,13 @@ import IdentifierReducer from "./redux/kfcIdentifierSlice";
 
 import KFCReducer from "./redux/kfcSlice";
 
-import updatedReducer from "./redux/updatemenu";
+import UpdatedReducer from "./redux/updatemenu";
 
 const rootReducer = combineReducers({
   kfc: KFCReducer,
   kfcIdentifier: IdentifierReducer,
   KfcaddData: menuReducer,
-  kfcupdate: updatedReducer,
+  kfcUpdate: UpdatedReducer,
   delKfc: erasingreducer
 });
 
