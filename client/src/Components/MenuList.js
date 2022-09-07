@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import React, { useEffect, useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import {useSelector, useDispatch} from 'react-redux';
 
 import {getKfcData} from '../redux/kfcSlice';
@@ -9,12 +11,19 @@ import {getKfcData} from '../redux/kfcSlice';
 import './MenuList.css'
 
 function MenuList() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {menu, loading} = useSelector((state) => state.kfc);
+
   useEffect(() => {
     dispatch(getKfcData());
     
   }, []);
+
+  // const update = (id) => {
+  //   dispatch(getupdateData(id))
+  //   navigate("/update")
+  // }
 
   const deletefood = (identifier) => {axios.delete(`http://localhost:4001/deletemenu/${identifier}`)}
 
@@ -30,9 +39,9 @@ function MenuList() {
                 <div>{item.name}</div>
                 <div>${item.price}</div>
               </div>
-              <div className="flex flex-row space-x-5">
-                <button className="text-xl font-bold text-white uppercase bg-blue-700 rounded-lg px-6 py-1 w-10/12">update</button>
-                <button className="text-xl font-bold text-white uppercase bg-gray-500 rounded-lg px-6 py-1 w-10/12"
+              <div className="flex flex-row">
+                {/* <button className="text-xl font-bold text-white uppercase bg-blue-700 rounded-lg px-6 py-1 w-10/12">update</button> */}
+                <button className="text-xl font-bold text-white uppercase bg-gray-500 rounded-lg px-6 py-1"
                 onClick={() => deletefood(item.identifier)}>delete</button>
               </div>
           </div>
