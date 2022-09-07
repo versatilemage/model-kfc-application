@@ -1,27 +1,22 @@
 import {createSlice} from '@reduxjs/toolkit';
-import Axios from "axios";
+
+import axios from "axios";
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const getupdateData = createAsyncThunk('getIdentifier', async(search) => {
-    const response = await Axios.put(`http://localhost:4001/updatemenu/${search}`).then((data) => {
-        return data.json();
-    })
+export const getupdateData = createAsyncThunk('getIdentifier', async(id) => {
+    const response = await axios.put(`http://localhost:4001/updatemenu/${id}`)
     return response;
 })
 
-const initial = {
-    loading: true,
-    name: null,
-    identifier: null,
-    price: null,
-    img: null,
-}
-
 const updatereducer = createSlice({
-    name: "kfcupdate",
+    name: "kfcUpdate",
     initialState: {
-        Value: initial
+        loading: false,
+        name: "",
+        identifier: "",
+        price: 0,
+        img: "",
     },
     reducer: {},
     extraReducers: {
@@ -43,6 +38,6 @@ const updatereducer = createSlice({
     }
 })
 
-const updatedReducer = updatereducer.reducer
+const UpdatedReducer = updatereducer.reducer
 
-export default updatedReducer
+export default UpdatedReducer

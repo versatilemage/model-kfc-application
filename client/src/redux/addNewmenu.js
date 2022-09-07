@@ -1,27 +1,26 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import Axios from "axios";
 
-export const addingNewMenu = createAsyncThunk("addnewmenu", async () => {
-    const response = await fetch(`http://localhost:4001/addmenu`).then((data) => {
-        return data.json()
+export const addingNewMenu = createAsyncThunk("addnewmenu", async() => {
+    const response = await Axios.post(`http://localhost:4001/addmenu`).then((data) => {
+        return data
     })
     return response
 })
 
 const initial = {
-    loading: false,
-    name: null,
-    identifier: null,
-    price: null,
-    img: null,
+    loading: true,
+    name: "",
+    identifier: "",
+    price: 0,
+    img: "",
 }
+
 
 const addReducer = createSlice({
     name: "kfcaddData",
-    initialState: {
-        value: initial
-    },
+    initialState: { value: initial },
     reducer: {},
     extraReducers: {
         [addingNewMenu.pending]: (state, action) => {
@@ -33,7 +32,7 @@ const addReducer = createSlice({
             state.identifier = action.payload.data;
             state.price = action.payload.data;
             state.img = action.payload.data;
-            // state.menu = action.payload.data
+            // state.menu = action.payload
         },
         [addingNewMenu.rejected]: (state, action) => {
             console.log(state,"state")

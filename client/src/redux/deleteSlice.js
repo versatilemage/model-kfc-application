@@ -12,8 +12,7 @@ export const deleteData = createAsyncThunk("deleteSelecteddata", async(search) =
 const deleteidentifier = createSlice({
     name:"delKfc",
     initialState: {
-        menu: [],
-        loading: true
+        loading: false
     },
     extraReducers:{
         [deleteData.pending]: (state, action) => {
@@ -21,7 +20,6 @@ const deleteidentifier = createSlice({
         },
         [deleteData.fulfilled]: (state, action) => {
             state.loading = false
-            state.menu = (action.payload)
         },
         [deleteData.rejected]: (state, action) => {
             console.log(state, action)

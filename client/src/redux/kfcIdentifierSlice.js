@@ -1,5 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+import Axios from "axios";
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getIdentifierData = createAsyncThunk('getIdentifier', async(search) => {
