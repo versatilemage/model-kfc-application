@@ -68,8 +68,7 @@ export const updateMenuById = async(req, res) => {
         {$set:{
             price: price,
             name: name,
-            img: img,
-            identifier: upid
+            img: img
         }},
         (err, data) => {
         if(data==null){
