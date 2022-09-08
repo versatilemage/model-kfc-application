@@ -11,6 +11,7 @@ import {
   getMenuById,
   updateMenuById,
   deleteMenuById,
+  tokenVerification
 } from "./routes/routes.js";
 
 
@@ -28,6 +29,7 @@ app.get("/menulist", getAllMenu); //can be used to see the existing menu
 app.get("/searchmenu/:identifier", getMenuById);
 app.put("/updatemenu/:identifier", updateMenuById);
 app.delete("/deletemenu/:identifier", deleteMenuById);
+app.get("/verification", tokenVerification);
 
 // DB connection establishment
 // mongoose.connect("mongodb://localhost:27017/kfcdata").then((res) => {
