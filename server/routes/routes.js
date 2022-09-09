@@ -6,9 +6,14 @@ import('dotenv')
 
 export const addMenuToKfc = async (req, res) => {
     const {identifier, price, name, img} = req.body
-    // const menu = {unique: identifier}
-    // const expirey = {expiresIn: "2hr"}
-    const accessToken = sign({identifier: identifier},ACCESS, {expiresIn: "2hr"})
+    const accessToken = sign({identifier: identifier},ACCESS, {expiresIn: "60s"})
+
+    res.cookie(String(identifier), accessToken, {
+        path: "/",
+        expires: new Date(Date.now() + 1000 * 60),
+        httpOnly: true,
+        sameSite: "lax"
+    })
     const data = new KFCModel({
             price: price,
             name: name,
@@ -24,15 +29,55 @@ export const addMenuToKfc = async (req, res) => {
             message: 'Data saved!!',
             data: data,
             Token: accessToken
-            // json({accessToken: accessToken})
-            // accessToken: json(accessToken)
         })
     })
-    // try{
-    //     await data.save()
-    // }catch (err) {
-    //     console.log(err)
-    // }
+}
+
+export const tokenVerification = (req, res, next) => {
+    const cookies = req.headers.cookie
+    const token = cookies.split("=")[1]
+    verify(String(token), ACCESS, (err, data) => {
+        if (err) {
+            return res.send({
+                status: 400,
+                message: "invalid token used"
+            })
+        }
+        // else {
+        //     res.send ({
+        //         status: 200,
+        //         data: [data],
+        //         message: "menu is present"
+        //     })
+        // }
+        console.log(data.identifier)
+        req.identifier = data.identifier
+    })
+    next()
+}
+
+export const getMenu = (req, res) => {
+    const menuid = req.identifier
+    KFCModel.findOne({ identifier: menuid }, 
+    (err, data) => {
+        if(err){
+            console.log(err);
+        }
+        else {
+            if(!data) {
+                return res.send({
+                    status: 404,
+                    message: "menu identifier is not found"
+                })
+            }
+            return res.send({
+                status: 200,
+                message: 'Data retrived!!',
+                data: [data]
+            });
+        }
+    });
+
 }
 
 export const getAllMenu = (req, res) => {
@@ -71,25 +116,6 @@ export const getMenuById = (req, res) => {
 
 }
 
-export const tokenVerification = (req, res, next) => {
-    const headers = req.headers[`authorization`]
-    const token = headers.split(" ")[1]
-    verify(String(token), ACCESS, (err, data) => {
-        if (err) {
-            return res.send({
-                status: 400,
-                message: "invalid token used"
-            })
-        }
-        else {
-            res.send ({
-                status: 200,
-                data,
-                message: "menu is present"
-            })
-        }
-    })
-}
 export const updateMenuById = async(req, res) => {
     const {price, name, img} = req.body
     const upid = req.params.identifier
