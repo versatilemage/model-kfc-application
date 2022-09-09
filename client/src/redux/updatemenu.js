@@ -1,11 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import axios from "axios";
+import Axios from "axios";
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const getupdateData = createAsyncThunk('getIdentifier', async(id) => {
-    const response = await axios.put(`http://localhost:4001/updatemenu/${id}`)
+export const getupdateData = createAsyncThunk('getid/getIdentifier', async(id) => {
+    const response = await Axios.put(`http://localhost:4001/updatemenu/${id}`)
     return response;
 })
 
@@ -25,10 +25,10 @@ const updatereducer = createSlice({
         },
         [getupdateData.fulfilled]: (state, action) => {
             state.loading = false;
-            state.name = action.payload.data;
-            state.identifier = action.payload.data;
-            state.price = action.payload.data;
-            state.img = action.payload.data;
+            state.name = action.payload.name;
+            state.identifier = action.payload.identifier;
+            state.price = action.payload.price;
+            state.img = action.payload.img;
         },
         [getupdateData.rejected]: (state, action) => {
             console.log(state,"state")
@@ -39,5 +39,7 @@ const updatereducer = createSlice({
 })
 
 const UpdatedReducer = updatereducer.reducer
+
+export const {loading, name, identifier, price, img} = (state) => (state.kfcUpdate)
 
 export default UpdatedReducer
