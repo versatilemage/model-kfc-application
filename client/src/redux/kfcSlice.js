@@ -16,7 +16,6 @@ const kfcReducer = createSlice({
         menu: [],
         loading: false
     },
-    reducer: {},
     extraReducers:{
         [getKfcData.pending]: (state, action) => {
             state.loading = true;
