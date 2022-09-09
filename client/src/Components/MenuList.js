@@ -20,11 +20,6 @@ function MenuList() {
     
   }, []);
 
-  // const update = (id) => {
-  //   dispatch(getupdateData(id))
-  //   navigate("/update")
-  // }
-
   const deletefood = (identifier) => {axios.delete(`http://localhost:4001/deletemenu/${identifier}`)}
 
   return (
@@ -34,7 +29,7 @@ function MenuList() {
         !loading && menu.length > 0 && menu.map((item) => (
           <div className="flex flex-col items-center m-10 bg-red-600 rounded-lg p-5 justify-items-start shadow shadow-black space-y-5
           transition duration-700 hover:scale-105" key={item.id}>
-            <img src={item.img} className="w-72 h-64 rounded-lg"/>
+            <img src={item.img} alt="no images found" className="w-72 h-64 rounded-lg"/>
               <div className="text-xl font-bold text-white capitalize flex flex-col items-start w-64 text-start">
                 <div>{item.name}</div>
                 <div>${item.price}</div>
