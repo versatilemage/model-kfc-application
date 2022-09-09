@@ -9,18 +9,15 @@ export const addingNewMenu = createAsyncThunk("addnewmenu", async() => {
     return response
 })
 
-const initial = {
-    loading: true,
-    name: "",
-    identifier: "",
-    price: 0,
-    img: "",
-}
-
-
 const addReducer = createSlice({
     name: "kfcaddData",
-    initialState: { value: initial },
+    initialState: {
+        loading: false,
+        name: "",
+        identifier: "",
+        price: 0,
+        img: "",
+    },
     reducer: {},
     extraReducers: {
         [addingNewMenu.pending]: (state, action) => {
